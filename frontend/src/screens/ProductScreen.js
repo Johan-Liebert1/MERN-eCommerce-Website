@@ -1,27 +1,27 @@
-import React, {useState, useEffect} from 'react'
-import axios from 'axios'
-import Product from '../components/Product'
+import React, {useEffect} from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Col, Row, Image, ListGroup, Card, Button } from 'react-bootstrap'
+
 import Rating from '../components/Rating'
+import { listProductDetails } from '../actions/productActions'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 
 const ProductScreen = ({ match }) => {
-    const [product, setProduct] = useState({})
+    const dispatch = useDispatch()
+
+    const productDetails = useSelector(state => state.productDetails)
+
+    const { loading, error, product } = productDetails
 
     useEffect(() => {
 
-        const fetchProduct = async () => {
-            const id = match.params.id
+        // this is how the action creator is mapped to the reducers
+        dispatch( listProductDetails(match.params.id) )
 
-            const { data } = await axios.get(`/api/products/${id}`)
-            
-            setProduct(data)
-        }
-
-        fetchProduct()
-
-    }, [match])
+    }, [dispatch, match])
 
 
     return (
@@ -29,6 +29,8 @@ const ProductScreen = ({ match }) => {
             <Link className = 'btn btn-primary my-3' to = '/'>
                 Go Back
             </Link>
+
+            {loading ? <Loader /> : error ? <Message variant='danger' /> : 
 
             <Row>
                 <Col md={6}>
@@ -97,6 +99,7 @@ const ProductScreen = ({ match }) => {
                     </Card>
                 </Col>
             </Row>
+            }
         </>
     )
 }
