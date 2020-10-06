@@ -3,13 +3,22 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import {productDetailsReducer, productListReducer} from './reducers/productReducers'
+import { cartReducer } from './reducers/cartReducers'
 
+// the naming convetion used here is nameOfState : nameOfReducer associated with that state
+// example productList, productDetails and cart are states 
 const reducer = combineReducers({
     productList : productListReducer,
-    productDetails : productDetailsReducer
+    productDetails : productDetailsReducer,
+    cart: cartReducer
 })
 
-const initialState = {}
+const cartItemsFromStorage = localStorage.getItem('cartItems') 
+    ? JSON.parse(localStorage.getItem('cartItems')) : []
+
+const initialState = {
+    cart : { cartItems : cartItemsFromStorage }
+}
 
 const middleware = [thunk]
 
