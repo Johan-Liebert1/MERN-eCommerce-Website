@@ -8,6 +8,8 @@ import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
+import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
 
 function App() {
     return (
@@ -26,6 +28,16 @@ function App() {
                     <Route 
                         exact path = '/cart/:id?' 
                         render = {routeProps => <CartScreen {...routeProps} /> } 
+                    />
+
+                    <Route 
+                        exact path = '/login' 
+                        render = {routeProps => <LoginScreen {...routeProps} /> } 
+                    />
+
+                    <Route 
+                        exact path = '/register' 
+                        render = {routeProps => <RegisterScreen {...routeProps} /> } 
                     />
                     
                 </Container>
