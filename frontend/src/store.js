@@ -4,7 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 import {productDetailsReducer, productListReducer} from './reducers/productReducers'
 import { cartReducer } from './reducers/cartReducers'
-import { userLoginReducer, userRegisterReducer } from './reducers/userReducers'
+import { userDetailsReducer, userLoginReducer, userRegisterReducer } from './reducers/userReducers'
 
 // the naming convetion used here is nameOfState : nameOfReducer associated with that state
 // example productList, productDetails and cart are states 
@@ -13,7 +13,8 @@ const reducer = combineReducers({
     productDetails : productDetailsReducer,
     cart: cartReducer,
     userLogin: userLoginReducer,
-    userRegister : userRegisterReducer
+    userRegister : userRegisterReducer,
+    userDetails: userDetailsReducer
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') 
