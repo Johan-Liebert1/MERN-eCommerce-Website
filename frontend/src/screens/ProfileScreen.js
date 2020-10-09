@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Col, Form, Row, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserDetails } from '../actions/userActions'
+import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 
@@ -17,12 +17,13 @@ const ProfileScreen = ({ location, history }) => {
     const dispatch = useDispatch()
 
     const userDetails = useSelector(state => state.userDetails)
-
     const { loading, error, user } = userDetails
 
     const userLogin = useSelector(state => state.userLogin)
-
     const { userInfo } = userLogin
+
+    const userUpdateProfile = useSelector(state => state.userUpdateProfile)
+    const { success } = userUpdateProfile
 
     useEffect(() => {
         if (!userInfo) {
@@ -31,7 +32,7 @@ const ProfileScreen = ({ location, history }) => {
 
         else {
 
-            if (!user.name) {
+            if (!user) {
                 dispatch(getUserDetails('profile'))
             }
 
@@ -52,18 +53,20 @@ const ProfileScreen = ({ location, history }) => {
             setMessage("Password do not Match")
         }
 
-        else {}
-            // Dispatch update profile
+        else {
+            dispatch(updateUserProfile({ id: user._id, name, email, password}))
+        }
     }
 
 
     return (
         <Row>
-            <Col md = {3}>
+            <Col md = {4}>
             <h3>User Profile</h3>
 
             {error && <Message variant = 'danger'> {error} </Message> }
             {message && <Message variant = 'danger'> {message} </Message> }
+            {success && <Message variant = 'success'> Updated Successfully </Message> }
             {loading && <Loader />}
 
             <Form onSubmit={submitHandler}>
@@ -119,7 +122,7 @@ const ProfileScreen = ({ location, history }) => {
             </Form>
             </Col>
 
-            <Col md={9}>
+            <Col md={8}>
                 <h3>My Orders</h3>
             </Col>
         </Row>
