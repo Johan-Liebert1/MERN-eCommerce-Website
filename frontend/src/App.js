@@ -12,6 +12,7 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import ShippingScreen from './screens/ShippingScreen';
+import PaymentScreen from './screens/PaymentScreen';
 
 function App() {
     return (
@@ -50,6 +51,11 @@ function App() {
                     <Route 
                         exact path = '/shipping' 
                         render = {routeProps => <ShippingScreen {...routeProps} /> } 
+                    />
+
+                    <Route 
+                        exact path = '/payment' 
+                        render = {routeProps => <PaymentScreen {...routeProps} /> } 
                     />
                     
                 </Container>
