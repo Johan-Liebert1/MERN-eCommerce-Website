@@ -11,6 +11,7 @@ import CartScreen from './screens/CartScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import ShippingScreen from './screens/ShippingScreen';
 
 function App() {
     return (
@@ -44,6 +45,11 @@ function App() {
                     <Route 
                         exact path = '/profile' 
                         render = {routeProps => <ProfileScreen {...routeProps} /> } 
+                    />
+
+                    <Route 
+                        exact path = '/shipping' 
+                        render = {routeProps => <ShippingScreen {...routeProps} /> } 
                     />
                     
                 </Container>
