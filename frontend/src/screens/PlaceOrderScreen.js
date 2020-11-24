@@ -27,23 +27,26 @@ const PlaceOrderScreen = ({ history }) => {
     useEffect(() => {
         if (success) {
             history.push(`/order/${order._id}`)
+            dispatch({ type: 'ORDER_CREATE_RESET' })
         }
 
         //eslint-disable-next-line
     }, [history, success])
 
-    const placeOrderHandler = (e) => {
-        e.preventDefault()
-
-        dispatch(createOrder({
+    const placeOrderHandler = () => {
+        const orderData = {
             orderItems: cart.cartItems,
             shippingAddress: cart.shippingAddress,
             paymentMethod: cart.paymentMethod,
             itemsPrice: cart.itemsPrice,
             shippingPrice: cart.shippingPrice,
             taxPrice: cart.taxPrice,
-            totalPrice: cart.totalPrice
-        }))
+            totalPrice: cart.totalPrice,
+        }
+
+        console.log(orderData)
+
+        dispatch(createOrder(orderData))
 
     }
 
@@ -70,7 +73,7 @@ const PlaceOrderScreen = ({ history }) => {
 
                     <ListGroup.Item>
                         <h4>Order Items</h4>
-                        {cart.cartItems.length == 0 ? <Message>Your Cart is Empty</Message> : (
+                        {cart.cartItems.length === 0 ? <Message>Your Cart is Empty</Message> : (
 
                             <ListGroup variant = 'flush'>
                                 {cart.cartItems.map((item, index) => (

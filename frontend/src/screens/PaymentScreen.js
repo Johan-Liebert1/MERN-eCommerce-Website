@@ -4,7 +4,7 @@ import { Button, Col, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from '../components/CheckoutSteps';
 import FormContainer from '../components/FormContainer';
-import {savePaymentMethod} from '../actions/cartActions'
+import {savePaymentMethod, saveShippingAddress} from '../actions/cartActions'
 
 const PaymentScreen = ({ history }) => {
 
@@ -17,7 +17,7 @@ const PaymentScreen = ({ history }) => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        // dispatch(saveShippingAddress({ address, city, postalCode, country }))
+        dispatch(saveShippingAddress(shippingAddress))
         dispatch(savePaymentMethod(paymentMethod))
         history.push('/placeorder')
     }

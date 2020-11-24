@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react'
-import axios from 'axios'
 import { Col, Row } from 'react-bootstrap'
 
 // these are hooks
